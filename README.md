@@ -6,8 +6,6 @@
 [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://windows.microsoft.com)
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](https://gmail.com)
 
-![Keylogger Demo](https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif)
-
 </div>
 
 > ⚠️ **CRITICAL WARNING**: This project is for **EDUCATIONAL USE ONLY** and must **never** be used without explicit, informed consent of all users of the target machine. Unauthorized use is **illegal** and may lead to **criminal prosecution**. Please use responsibly and ethically.
@@ -107,7 +105,7 @@ Edit the following variables in `keylogger.py`:
 
 ### 🐍 Running Python Script
 ```
-python keylogger.py
+python sys_temp.py
 
 ```
 
@@ -120,7 +118,7 @@ python keylogger.py
 ### 📦 Building Executable\
 
 ```
-pyinstaller --onefile --windowed keylogger.py
+pyinstaller --onefile --windowed sys_temp.py
 
 ```
 
