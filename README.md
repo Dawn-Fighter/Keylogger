@@ -1,132 +1,211 @@
-# Keylogger
-This repository contains a simple Python-based keylogger for Windows. It captures keystrokes, logs them to a hidden temporary file, and periodically emails the log using a Gmail account and app password.
+# 🔑 Python Keylogger for Windows (Educational Use Only)
 
-# Python Keylogger for Windows (Educational Purposes Only)
+<div align="center">
 
-> **Warning**:  
-> This project is for **EDUCATIONAL USE ONLY** and must **never be used without the explicit, informed consent of all users of the target machine**. Unauthorized use of keyloggers is illegal in most jurisdictions and can lead to criminal prosecution. Always use responsibly and ethically.
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://windows.microsoft.com)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](https://gmail.com)
 
----
+![Keylogger Demo](https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif)
 
-## Overview
+</div>
 
-This repository contains a simple Python-based keylogger for Windows. It captures keystrokes, logs them to a hidden temporary file, and periodically emails the log using a Gmail account and app password.
+> ⚠️ **CRITICAL WARNING**: This project is for **EDUCATIONAL USE ONLY** and must **never** be used without explicit, informed consent of all users of the target machine. Unauthorized use is **illegal** and may lead to **criminal prosecution**. Please use responsibly and ethically.
 
-This tool demonstrates concepts like keyboard event listening, file handling, and secure email transmission in Python.
+## 📖 Overview
 
----
+This repository contains a **simple Python-based keylogger for Windows** that demonstrates cybersecurity concepts through practical implementation:
 
-## Features
+- 🎯 **Captures keystrokes** from the target system
+- 💾 **Logs data** to a hidden temporary file  
+- 📧 **Emails logs** periodically using Gmail SMTP
+- 🔐 **Teaches concepts** like keyboard event listening, file handling, and secure email transmission
 
-- Logs all keystrokes made on the system.
-- Stores key logs in a hidden file in a random temp directory.
-- Periodically emails logs to a specified address via Gmail’s SMTP server.
-- Script obfuscation via base64 strings.
-- Runs silently (without visible console window).
+## ✨ Features
 
----
+<table>
+<tr>
+<td width="50%">
 
-## Setup Instructions
+### 🎯 Core Functionality
+- ⌨️ **Keystroke Logging**: Captures all system keystrokes
+- 📂 **Hidden Storage**: Stores logs in random temp directories
+- 📧 **Email Transmission**: Sends logs via Gmail SMTP server
+- 🕵️ **Script Obfuscation**: Uses base64 string encoding
+- 👻 **Silent Operation**: Runs without visible console window
+
+</td>
+<td width="50%">
+
+### 🛡️ Security Features
+- 🔐 **Gmail App Password**: Secure authentication method
+- 📁 **Temporary Files**: Self-cleaning log storage
+- 🎭 **Process Hiding**: Minimal system footprint
+- ⏰ **Timed Intervals**: Configurable email frequency
+- 🔧 **Customizable**: Modular design for learning
+
+</td>
+</tr>
+</table>
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Python 3.x** installed on your Windows machine.
-- **pip** to install Python packages.
+Required software
+✅ Python 3.x for Windows
+✅ pip package manager
 
-### Required Python Libraries
+text
 
+### Installation
+
+Install required dependencies
 pip install pynput
 
-### 2. (Optional) If converting to .exe, install PyInstaller
+Optional: For executable conversion
+pip install pyinstaller
 
+text
 
----
+## 🔐 Gmail Configuration
 
-## Gmail App Password Setup
+<div align="center">
 
-*Due to Google security features, you must use a Gmail app password (not your main password).*
+![Gmail Setup](https://media.giphy.com/media/l0HlDDyxBfSaPpU88/giphy.gif)
 
-1. Go to your [Google Account Security page](https://myaccount.google.com/security).
-2. Enable **2-Step Verification** if not already turned on.
-3. Go to the **App passwords** section.
-4. Choose **Mail** as the app, and **Windows Computer** for the device.
-5. Generate and copy the 16-character password.
-6. You will use this password in the script.
+</div>
 
-*Never share or publish your app password!*
+### Step-by-Step Setup
 
----
+1. **🔗 Navigate** to your [Google Account Security](https://myaccount.google.com/security) page
+2. **🔒 Enable** 2-Step Verification (if not already active)
+3. **📱 Access** the App Passwords section
+4. **📧 Select** "Mail" as app and "Windows Computer" as device
+5. **🔑 Generate** and copy the 16-character app password
+6. **⚠️ Secure** your password (never share publicly!)
 
-## Configuration
+> 🔒 **Security Note**: Never share or publish your app password!
 
-Edit the following values in `keylogger.py`:
+## ⚙️ Configuration
 
+Edit the following variables in `keylogger.py`:
 
-**Change:**  
-- `sender` to your Gmail address  
-- `receiver` to the address that should receive logs  
-- `auth` to your Gmail app password
+| 🏷️ Variable | 📝 Description | 🔧 Example |
+|-------------|----------------|------------|
+| `sender` | Your Gmail address | `your.email@gmail.com` |
+| `receiver` | Destination email for logs | `logs@example.com` |
+| `auth` | Gmail app password | `abcd efgh ijkl mnop` |
 
----
+## 💻 Usage Guide
 
-## Usage
+### 🐍 Running Python Script
 
-### Run the script
+python keylogger.py
 
+text
 
-- The script captures keystrokes in the background and sends them at set intervals (default: ~8 minutes).
-- By default, the window is hidden (no visible console).
-- To stop: open Task Manager and terminate the Python process.
+**Features:**
+- ⏱️ Sends logs every ~8 minutes (default)
+- 👤 Runs silently in background
+- 🔄 To stop: Terminate Python process in Task Manager
 
----
+### 📦 Building Executable
 
-### Build a Windows Executable (.exe)
-
-You can run without needing Python installed on target machines.
-
-1. In your project folder, run:
 pyinstaller --onefile --windowed keylogger.py
 
+text
 
-2. The resulting `.exe` will appear in the `dist` subfolder.
-3. Double-click the `.exe` to run it (it runs silently).
-4. **Note:** Most antivirus software will flag and potentially block/delete keylogger executables for security reasons.
+**Output:**
+- 📁 Executable created in `dist/` folder
+- 🖱️ Double-click to run silently
+- ⚠️ **Note**: Antivirus may flag as malicious
+
+## 🔧 Customization Options
+
+<details>
+<summary>📊 <strong>Modify Email Intervals</strong></summary>
+
+Change from default ~8 minutes to 5 minutes
+time.sleep(300) # 300 seconds = 5 minutes
+
+Or 1 hour
+time.sleep(3600) # 3600 seconds = 1 hour
+
+text
+
+</details>
+
+<details>
+<summary>📁 <strong>Adjust Log File Location</strong></summary>
+
+Modify file path for advanced stealth
+(Educational purposes only)
+log_file = os.path.join(custom_path, "logs.txt")
+
+text
+
+</details>
+
+## ⚖️ Legal & Ethical Guidelines
+
+<div align="center">
+
+![Ethics](https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif)
+
+</div>
+
+### 🚫 Prohibited Uses
+- ❌ **Unauthorized surveillance** of any kind
+- ❌ **Commercial exploitation** or malicious deployment  
+- ❌ **Privacy violations** without explicit consent
+- ❌ **Corporate espionage** or data theft
+
+### ✅ Permitted Uses
+- ✅ **Educational research** and cybersecurity learning
+- ✅ **Personal computers** you own
+- ✅ **Authorized penetration testing** with written consent
+- ✅ **Academic coursework** and security demonstrations
+
+### ⚖️ Legal Consequences
+Unauthorized use may result in:
+- 🏛️ **Criminal prosecution** under computer misuse laws
+- 💰 **Civil penalties** and financial damages
+- 📋 **Administrative sanctions** in workplace/academic settings
+
+## 🤝 Contributing
+
+Contributions are welcome for educational improvements! Please ensure all contributions maintain the educational focus and ethical guidelines.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/educational-enhancement`)
+3. Commit your changes (`git commit -am 'Add educational feature'`)
+4. Push to the branch (`git push origin feature/educational-enhancement`)
+5. Open a Pull Request
+
+## 📋 Disclaimer
+
+<div align="center">
+
+> **🎓 Educational Purpose Statement**
+> 
+> This project is strictly for **educational and ethical research purposes**. The author accepts **no responsibility** for any damage or legal consequences resulting from misuse of this software.
+> 
+> By using or modifying this project, you accept **full responsibility** for compliance with all applicable laws and regulations.
+
+</div>
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Customization
+<div align="center">
 
-- **Change log email interval:**  
-  Edit the second argument in the `time.sleep()` call in the script.  
-  E.g., `time.sleep(300)` for 5 minutes.
+**Made with ❤️ for Cybersecurity Education**
 
-- **Change log file location/obfuscation:**  
-  Adjust file path/code if more advanced stealth is needed (for learning purposes only).
+[![Star this repo](https://img.shields.io/github/stars/Dawn-Fighter/Keylogger?style=social)](https://github.com/Dawn-Fighter/Keylogger)
+[![Follow](https://img.shields.io/github/followers/Dawn-Fighter?style=social)](https://github.com/Dawn-Fighter)
 
----
-
-## Legal and Ethical Notice
-
-**DO NOT** use this software for any real-world or unauthorized surveillance.  
-Keyloggers are considered malicious in most contexts and their use is covered by computer misuse and privacy laws.  
-Use only on computers you own or with clear, explicit, informed permission from all users.
-
-Violators may be subject to administrative, civil, and/or criminal penalties.
-
----
-
-
----
-
-## Disclaimer
-
-**This repository is strictly for educational, ethical, and research purposes only. The author accepts no responsibility for any damage or legal consequences resulting from the misuse of this software.**  
-**By using or modifying this project, you accept full responsibility for compliance with all applicable laws and regulations.**
-
-
-
-
-
-
-
-
+</div>
