@@ -24,14 +24,6 @@ This repository demonstrates basic **keylogger and data exfiltration concepts** 
 
 ---
 
-## 🗂️ Project Structure
-
-Keylogger/
-├─ main.py # Main script containing the keylogger logic (see below)
-├─ walpaper.jpg # Image shown to user (can use any .jpg, rename as needed)
-
----
-
 ## ⚙️ Setup & Configuration
 
 ### 1. Clone or Download the Repository
