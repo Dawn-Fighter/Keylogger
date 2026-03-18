@@ -1,157 +1,120 @@
-# 🔑 Python Keylogger for Windows (Educational Use Only)
+# Keylogger — Windows Keystroke Capture & Exfiltration Demo
 
-<div align="center">
+![Python](https://img.shields.io/badge/Python-3.7+-3776AB?style=flat-square&logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://windows.microsoft.com)
-[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](https://gmail.com)
+A Python-based keylogger built to demonstrate how keystroke capture and data exfiltration work at a technical level. Written for malware research, security awareness training, and understanding attacker techniques in controlled lab environments.
 
-</div>
-
-> ⚠️ **CRITICAL WARNING**:  
-> This project is for **EDUCATIONAL USE ONLY**—never use it on any computer or account without explicit, informed consent. Unauthorized use is **illegal** and punishable by law.
+> ⚠️ **Authorized use only.** Running this on any system without explicit written consent is illegal. This is a research and education tool — treat it accordingly.
 
 ---
 
-## 📖 Overview
+## What It Does
 
-This repository demonstrates basic **keylogger and data exfiltration concepts** for cybersecurity education, including:
-
-- **Keystroke capture** using `pynput`
-- **Obfuscated, random log file creation**
-- **Automatic keystroke emailing via Gmail**
-- **User deception: shows a benign image on launch while the logger runs in the background**
+- Captures all keystrokes using `pynput`
+- Stores logs in an obfuscated temp file with a randomized filename
+- Encodes logs in base64 and exfiltrates via Gmail SMTP on a randomized timer (200–450s)
+- Displays a decoy image on launch while running silently in the background
+- Can be compiled to a standalone `.exe` with PyInstaller for lab deployment testing
 
 ---
 
-## ⚙️ Setup & Configuration
+## Technical Overview
 
-### 1. Clone or Download the Repository
-```
+| Component | Implementation |
+|---|---|
+| Keystroke capture | `pynput.keyboard.Listener` |
+| Log storage | Randomized `.dat` file in `%TEMP%` |
+| Encoding | Base64 via `base64` module |
+| Exfiltration | SMTP over Gmail with App Password auth |
+| Persistence trigger | Background thread, timer-based flush |
+| Decoy | `PIL.Image` display on launch |
+
+---
+
+## Setup
+
+```bash
 git clone https://github.com/Dawn-Fighter/Keylogger.git
 cd Keylogger
-```
-
-
-### 2. Install Dependencies
-```
 pip install pynput pillow
 ```
 
+### Configure Email Exfiltration
 
-### 3. Gmail App Password Configuration
+Open `keylogger.py` and set your credentials in the `tx()` function:
 
-**You must use a Gmail App Password, not your normal account password.**
-
-- Go to [Google Account – Security](https://myaccount.google.com/security)
-- Enable 2-Step Verification
-- Generate an "App Password" for "Mail" (16 characters)
-- **Never share your App Password!**
-
-### 4. Add Your Credentials to the Script
-
-Open `keylogger.py` and find the following section inside the `tx(lf)` function:
-
-s, r, pw = "", "", ""
-
-
-
-Replace with your actual details:
-
-s = "your.email@gmail.com" # Sender Gmail address
-r = "logs.receiver@gmail.com" # Recipient email address (can be the same as sender)
-pw = "your-16-char-app-password" # Your Gmail app password
-
-
-
-**Example**:
-
-s, r, pw = "mylogsender@gmail.com", "mydest@gmail.com", "abcd efgh ijkl mnop"
-
-
-- **`s`**: Your sending Gmail address
-- **`r`**: Email address to receive log files
-- **`pw`**: Gmail App Password (not your main Gmail password)
-
----
-
-## 🖼️ Add Your Display Image
-
-- Place your actual image as `walpaper.jpg` in the **same folder** as `main.py`.
-    - Or change `"walpaper.jpg"` to your own image filename in the script.
-
----
-
-## 💻 Usage
-
-### A. Running as a Python Script
+```python
+s  = "sender@gmail.com"         # sending address
+r  = "receiver@gmail.com"       # receiving address
+pw = "xxxx xxxx xxxx xxxx"      # Gmail App Password (not your main password)
 ```
+
+To get a Gmail App Password: Google Account → Security → 2-Step Verification → App Passwords.
+
+### Add Decoy Image
+
+Place any image as `walpaper.jpg` in the same directory as `main.py`, or update the filename in the script.
+
+---
+
+## Usage
+
+```bash
+# Run directly
 python main.py
-
 ```
 
+Decoy image flashes briefly, then the logger runs silently. Logs are flushed and emailed every 200–450 seconds. Kill via Task Manager or `Ctrl+C`.
 
-- Briefly displays the image.
-- Runs the keylogger silently in the background.
-- Sends encrypted (base64) keystroke logs via email every 200–450 seconds.
-- Terminates only when you kill the process (e.g., via Task Manager).
+### Build as Executable (Lab Testing)
 
-### B. Converting to a Standalone `.exe` (Optional)
+```bash
+pip install pyinstaller
+pyinstaller --onefile --windowed --add-data "walpaper.jpg;." keylogger.py
+```
 
-1. **Install PyInstaller:**
-    ```
-    pip install pyinstaller
-    ```
-2. **Bundle the image with your exe:**
-    ```
-    pyinstaller --onefile --windowed --add-data "walpaper.jpg;." keylogger.py
-    ```
-    - The exe will appear in the `dist/` folder.
-    - For a disguised icon, convert your image to `.ico` and add `--icon=youricon.ico`.
-
-3. **Rename Output for Camouflage:**
-    - Example: `pic01.jpg.exe`
-    - **Note**: Only users with file extensions hidden will see it as an image.
+Output lands in `dist/`. Add `--icon=youricon.ico` to set a custom icon for social engineering simulations.
 
 ---
 
-## 📨 Reading the Logs
+## Decoding Captured Logs
 
-The received attachment (`.dat` file) is base64-encoded keystrokes. To decode:
+Exfiltrated `.dat` attachments are base64-encoded. Decode with:
 
-### On Windows (using certutil):
-```
+```bash
+# Windows
 certutil -decode yourfile.dat output.txt
-```
 
-### On Linux/macOS:
-```
+# Linux / macOS
 base64 -d yourfile.dat > output.txt
 ```
 
-Or use any online Base64 decoder.
+---
+
+## Detection
+
+Modern AV and EDR solutions will flag this. Tested detections include:
+
+- Windows Defender — flags on `pynput` listener pattern
+- Process behavior monitoring — catches SMTP calls from non-browser processes
+- Network-level — SMTP traffic from endpoints without mail clients
+
+This is intentional — part of the educational value is understanding *why* and *how* it gets caught.
 
 ---
 
-## 🛡️ Security, Ethics & Disclaimer
+## Disclaimer
 
-- **Educational use only**: Never run on another person's computer or network.
-- **Antivirus detection**: Modern AV products will likely flag and quarantine this executable.
-- **You are fully responsible** for any legal or ethical violations resulting from misuse.
+Built for malware analysis, blue team training, and understanding offensive techniques. Only deploy in isolated lab environments on systems you own or have written authorization to test. The author assumes no responsibility for misuse.
 
 ---
 
-## 📄 License
+## Author
 
-MIT License. See `LICENSE` for details.
+**Chethas Dileep** — Penetration Tester & Security Developer
 
----
-
-<div align="center">
-
-**Made with ❤️ for Cybersecurity Education**
-
-</div>
-
----
-
+[![GitHub](https://img.shields.io/badge/GitHub-Dawn--Fighter-181717?style=flat-square&logo=github)](https://github.com/Dawn-Fighter)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-chethas--dileep-0077B5?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/chethas-dileep-530722211)
+[![Portfolio](https://img.shields.io/badge/Portfolio-edneam.site-FF4500?style=flat-square&logo=firefox)](http://www.edneam.site)
